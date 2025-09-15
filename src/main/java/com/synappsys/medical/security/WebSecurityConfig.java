@@ -105,6 +105,8 @@ public class WebSecurityConfig {
                     // Configure authorization for HTTP requests
                     .requestMatchers("/api/auth/**").permitAll()
                     // Allow public access to auth endpoints
+                    .requestMatchers("/api/doctors/**").permitAll()
+                    // Allow public access to doctors endpoints
                     .requestMatchers("/api/test/**").permitAll()
                     // Allow public access to test endpoints
                     .anyRequest().authenticated());

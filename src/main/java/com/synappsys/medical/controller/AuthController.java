@@ -16,6 +16,7 @@ import jakarta.validation.Valid;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -32,6 +33,7 @@ import org.springframework.web.bind.annotation.RestController;
 @CrossOrigin(origins = "*", maxAge = 3600) // Allow cross-origin requests for all origins
 @RestController // Indicate that this class is a REST controller
 @RequestMapping("/api/auth") // Base URL for authentication-related endpoints
+@Slf4j
 public class AuthController {
 
   private final AuthenticationManager authenticationManager; // Handles user authentication
@@ -61,6 +63,7 @@ public class AuthController {
   @PostMapping("/signin")
   public ResponseEntity<JwtResponse> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
 
+    log.info("Authenticating user: {}", loginRequest.getUsername());
     // Authenticate the user with the provided username and password
     Authentication authentication = authenticationManager.authenticate(
         new UsernamePasswordAuthenticationToken(loginRequest.getUsername(),
